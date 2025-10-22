@@ -79,7 +79,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -544,
+        -336,
         192
       ],
       "id": "e607777b-33d4-4c15-b6c3-a569c130801b",
@@ -114,7 +114,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -336,
+        -128,
         192
       ],
       "id": "e8fc0e5d-e238-4e48-bc91-7d65b3041258",
@@ -210,7 +210,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -128,
+        80,
         192
       ],
       "id": "5f110c2f-68db-4298-93fa-a4b086ddeba4",
@@ -237,12 +237,13 @@
             }
           ]
         },
+        "jsonOutput": true,
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.googleGemini",
       "typeVersion": 1,
       "position": [
-        80,
+        288,
         192
       ],
       "id": "a3a52c30-7912-4158-b72a-3f85d08b6114",
@@ -271,7 +272,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        480,
+        688,
         160
       ],
       "id": "e7cb0728-bb8b-4223-966b-7e89ee4f4e2a",
@@ -382,7 +383,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        688,
+        896,
         160
       ],
       "id": "5e0abf14-f1f2-4cb1-8745-e20d2e6e8b43",
@@ -403,7 +404,7 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        896,
+        1088,
         160
       ],
       "id": "4200900b-c1b1-4e50-a022-e04e96dbe6e9",
@@ -435,8 +436,8 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        -224,
-        352
+        144,
+        640
       ],
       "id": "19e64fb1-0c8a-4351-a641-9001373e2c0e",
       "name": "Get row(s) in sheet1",
@@ -451,13 +452,13 @@
       "parameters": {
         "sendTo": "={{ $json[\"google Email\"].join(\",\") }}",
         "subject": "테스트 ] n8n 컬럼 테스트",
-        "message": "테스트 ] n8n 컬럼 테스트",
+        "message": "=테스트 ] n8n 컬럼 테스트{{ $('Aggregate').item.json[\"기사요약\"] }}",
         "options": {}
       },
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
       "position": [
-        848,
+        1264,
         352
       ],
       "id": "52be3381-450a-456b-b8f5-8bffbd4a69c1",
@@ -475,6 +476,26 @@
         "fieldsToAggregate": {
           "fieldToAggregate": [
             {
+              "fieldToAggregate": "기사요약"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -784,
+        80
+      ],
+      "id": "bf0c10b9-966f-4aba-bbf7-ced97d84db85",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
               "fieldToAggregate": "google Email"
             }
           ]
@@ -484,11 +505,11 @@
       "type": "n8n-nodes-base.aggregate",
       "typeVersion": 1,
       "position": [
-        832,
-        592
+        352,
+        640
       ],
-      "id": "9fb152cc-fe44-48f6-90f6-56f4712b212f",
-      "name": "Aggregate"
+      "id": "f0861a90-74ad-4401-8221-b9ed0c9299cf",
+      "name": "Aggregate1"
     }
   ],
   "pinData": {},
@@ -519,7 +540,7 @@
       "main": [
         [
           {
-            "node": "Get row(s) in sheet1",
+            "node": "Aggregate",
             "type": "main",
             "index": 0
           }
@@ -584,13 +605,7 @@
             "node": "Send a text message",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Send a text message": {
-      "main": [
-        [
+          },
           {
             "node": "Loop Over Items",
             "type": "main",
@@ -599,11 +614,16 @@
         ]
       ]
     },
+    "Send a text message": {
+      "main": [
+        []
+      ]
+    },
     "Get row(s) in sheet1": {
       "main": [
         [
           {
-            "node": "Aggregate",
+            "node": "Aggregate1",
             "type": "main",
             "index": 0
           }
@@ -630,6 +650,17 @@
       "main": [
         [
           {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
             "node": "Send a message",
             "type": "main",
             "index": 0
@@ -642,7 +673,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "3676c965-7255-4b41-bc91-60da06c169b7",
+  "versionId": "5cce0fa9-7ca9-4021-bded-4ce2074ed96f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "55386bc8cf916a9d61ab8ada00c0c75d1b9c7cf0c1a55d975f34db88e4307f69"
