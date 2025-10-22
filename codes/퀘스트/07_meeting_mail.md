@@ -88,7 +88,13 @@ https://docs.google.com/document/d/1KLU4oAAprirq1TxqV0p-rOtNxQEIuWCn5Mcd8sbXr8Y/
 **수신: 박서준 팀장님, 최지혜 매니저님**
 **발신: 유어미디어 황선영 캠페인 전략팀장**
 
-박서준 팀장님, 최지혜 매니저님,
+
+
+
+
+
+
+## 박서준 팀장님, 최지혜 매니저님,
 
 유어미디어 황선영입니다.
 오늘 '스파클링 아이스티' 신제품 론칭 킥오프 미팅에 귀한 시간 내어주시고, 캠페인 방향성에 대한 깊이 있는 인사이트 공유해주셔서 진심으로 감사드립니다.
@@ -115,3 +121,5 @@ https://docs.google.com/document/d/1KLU4oAAprirq1TxqV0p-rOtNxQEIuWCn5Mcd8sbXr8Y/
 1. 1023 '더 어반 십' 킥오프 미팅 회의록.md
 2. 종합 미디어 에이전시 서비스 가격 정책 안내.pdf
 3. 참조 링크참조 입력 문서 (가격 정책):https://docs.google.com/document/d/1KLU4oAAprirq1TxqV0p-rOtNxQEIuWCn5Mcd8sbXr8Y/edit?tab=t.0원본 회의 녹취록 (Transcript):https://docs.google.com/document/d/1wWXJxOSIHSp9AsurrPVg-xY4z-3VQhSrKiCSeEfgAys/edit?usp=sharinghttps://docs.google.com/document/d/1sNeN3GRr044wWSfXkF7h12mQ9arGzgoEdD_eUM8YLOU/edit?usp=sharing
+
+```
