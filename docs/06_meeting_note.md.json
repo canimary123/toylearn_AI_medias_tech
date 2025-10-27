@@ -1,0 +1,373 @@
+{
+  "name": "06_meeting_note.md",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "copy",
+        "fileId": {
+          "__rl": true,
+          "value": "1n09oJKp5lZDYftFuMHOaN7BHSewHXFcSpISp97cSRx4",
+          "mode": "list",
+          "cachedResultName": "07_meeting_note",
+          "cachedResultUrl": "https://docs.google.com/document/d/1n09oJKp5lZDYftFuMHOaN7BHSewHXFcSpISp97cSRx4/edit?usp=drivesdk"
+        },
+        "name": "=회의 녹취록 - {{ $json['주관자_Email'] }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        800,
+        640
+      ],
+      "id": "ffbacf5e-eefa-44db-aa09-95070d1d1963",
+      "name": "Copy file1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "CZI93dNUcrHJh39O",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "예비 이력서",
+        "formDescription": "필요 정보 입력",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "주관자_Email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "참여 인원"
+            },
+            {
+              "fieldLabel": "회의 주제",
+              "fieldType": "textarea"
+            },
+            {
+              "fieldLabel": "회의 내용",
+              "fieldType": "textarea"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        288,
+        752
+      ],
+      "id": "903968af-0397-4705-ad75-9986d5930544",
+      "name": "On form submission",
+      "webhookId": "a2b718c1-6ae1-4294-bfde-fbccd50bc76f"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $('Copy file1').item.json.id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "replaceAll",
+              "text": "주관자_Email",
+              "replaceText": "={{ $('On form submission').item.json['주관자_Email'] }}",
+              "matchCase": true
+            },
+            {
+              "action": "replaceAll",
+              "text": "참여 인원",
+              "replaceText": "={{ $('On form submission').item.json['참여 인원'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "회의 주제",
+              "replaceText": "={{ $json.content.parts[0].text }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "회의 내용",
+              "replaceText": "={{ $('On form submission').item.json['회의 내용'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "날짜(입력날짜)",
+              "replaceText": "={{ $('On form submission').item.json.submittedAt }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1504,
+        656
+      ],
+      "id": "5d47f1ee-0c25-4626-9709-a3a663273ec0",
+      "name": "Update a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "i8arn3feZyiRw7z9",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a385cf17-0bd9-4db0-acb3-3080c07e87ca",
+              "leftValue": "={{ $json['회의 주제'] }}{{ $json['회의 내용'] }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        528,
+        752
+      ],
+      "id": "79106497-a680-40f8-93be-35fb03bfa00c",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.documentId }}",
+          "mode": "id"
+        },
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "application/pdf"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1760,
+        640
+      ],
+      "id": "b1d3b725-b8c5-49bf-8920-3accddad4980",
+      "name": "Download file1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "CZI93dNUcrHJh39O",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "= {{ $('Copy file1').item.json.name }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "16bIQXK_PVNBQQpnOKYpNSy2n4EvnZYqv",
+          "mode": "list",
+          "cachedResultName": "n8ns",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/16bIQXK_PVNBQQpnOKYpNSy2n4EvnZYqv"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1984,
+        640
+      ],
+      "id": "eb9d46ae-be10-40d0-bab0-a663ec0ec4fd",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "CLew9emlaimHMeDS",
+          "name": "Google Drive account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.0-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.0-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=회의 주제 한줄 이내로 요약해줘 {{ $('On form submission').item.json['회의 주제'] }}"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1104,
+        640
+      ],
+      "id": "75b83662-2c59-45c1-a59d-6c076ece3fc4",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "XKSQUr0YSleiaMAG",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json['주관자_Email'] }}",
+        "subject": "=공지]회의 주제,내용  누락 정보",
+        "message": "주제,내용  항목 누락",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        800,
+        784
+      ],
+      "id": "fbbbc59e-20ab-40de-a8a0-412c89f5ba3a",
+      "name": "Send a message",
+      "webhookId": "6b597364-e069-4ddf-9067-6d84ddb883e9",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "u7cCvSZubTs9BmsR",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "On form submission": [
+      {
+        "json": {
+          "주관자_Email": "qped123@gmail.com",
+          "참여 인원": "5",
+          "회의 주제": "초록숲 재단 '내 숨을 위한 한 평의 숲' 공익 캠페인 킥오프 미팅",
+          "회의 내용": "00:00:12] 김민준 팀장 (유어미디어): 이지수 매니저님, 김선우 국장님, 안녕하세요. 유어미디어의 김민준입니다. 바쁘신 와중에 시간 내어주셔서 진심으로 감사합니다. 초록숲 재단의 뜻깊은 캠페인에 대해 논의하게 되어 저희도 기대가 큽니다. 옆에는 저희 이수영 크리에이티브 디렉터님이십니다.\r\n[00:00:41] 이수영 디렉터 (유어미디어): 안녕하세요. 만나 뵙게 되어 반갑습니다.\r\n[00:00:55] 김선우 국장 (초록숲 재단): 네, 안녕하세요. 초록숲 재단의 김선우입니다. 저희야말로 귀한 시간을 내어주셔서 감사합니다. 보내주신 회신 메일을 보고, 저희의 고민을 깊이 이해하고 계신다는 느낌을 받았습니다.\r\n[00:01:28] 이지수 매니저 (초록숲 재단): 네, 맞습니다. 오늘 미팅을 통해 더 구체적인 방향을 함께 찾을 수 있기를 바랍니다.\r\n[00:01:40] 김민준 팀장 (유어미디어): 그럼요. 저희도 최선을 다하겠습니다. 메일로 공유해주신 내용 외에, 이번 캠페인을 통해 대중에게 꼭 전달하고 싶은 핵심 메시지나 감정이 있다면 무엇일까요?\r\n[00:02:15] 김선우 국장 (초록숲 재단): 좋은 질문입니다. 저희는 단순히 '도시 숲이 필요하다'는 정보를 전달하는 것을 넘어, 시민 개개인의 작은 숨결, 작은 관심이 모여 거대한 변화를 만들 수 있다는 '연대감'과 '희망'을 전달하고 싶습니다. 캠페인을 본 사람들이 '나도 한번 참여해볼까?' 하는 마음이 들게 만드는 것이 가장 큰 목표입니다.\r\n[00:03:09] 이수영 디렉터 (유어미디어): '연대감'과 '희망'이라는 키워드가 마음에 와닿네요. 그렇다면 화려하고 자극적인 광고보다는, 진정성 있고 따뜻한 접근이 필요할 것 같습니다. 저희는 \"숨결이 모여 숲이 될 때\"라는 크리에이티브 콘셉트를 제안하고 싶습니다.\r\n[00:03:44] 이지수 매니저 (초록숲 재단): \"숨결이 모여 숲이 될 때\"... 너무 좋은데요?\r\n[00:03:58] 이수영 디렉터 (유어미디어): 네. 평범한 시민들의 인터뷰를 기반으로 한 다큐멘터리 형식의 영상을 제작하는 겁니다. 삭막한 도시에서 답답함을 느끼는 직장인, 아이의 건강을 걱정하는 부모, 작은 화분을 가꾸는 노부부의 짧은 숨결(인터뷰)들이 교차 편집되다가, 마지막에는 그 모든 숨결이 모여 푸른 숲을 이루는 감동적인 이미지로 전환되는 거죠.\r\n[00:04:46] 김선우 국장 (초록숲 재단): 아, 정말 멋진 아이디어입니다. 저희가 생각했던 방향과 정확히 일치합니다. 그런데, 국장으로서 현실적인 질문을 드릴 수밖에 없네요. 5천만 원이라는 한정된 예산으로 TV와 라디오 광고 제작, 그리고 송출까지 가능할까요?\r\n[00:05:20] 김민준 팀장 (유어미디어): (고개를 끄덕이며) 네, 가장 중요한 지점이죠. 솔직히 말씀드리면, 일반적인 상업 광고처럼 집행하기는 어렵습니다. 하지만 불가능하지 않습니다. 저희의 전략은 '선택과 집중', 그리고 '명분 활용'입니다. (화면 공유 시작)\r\n(화면에 미디어 전략 요약본 표시)\r\n[00:05:55] 김민준 팀장 (유어미디어): 첫째, 퀄리티 높은 30초 영상 하나를 제대로 만드는 데 제작비 대부분을 집중합니다. 이 영상이 TV와 온라인 바이럴의 핵심 소스가 될 겁니다. 둘째, 저희의 강력한 네트워크를 활용하여 방송사의 공익광고(PSA) 시간대를 최대한 확보하고, 캠페인의 좋은 취지를 설명하여 일부 방송사 및 라디오 채널로부터 '미디어 후원(협찬)'을 이끌어내는 데 총력을 다할 것입니다.\r\n[00:06:40] 이지수 매니저 (초록숲 재단): 미디어 후원까지도 고려해주시는군요.\r\n[00:06:48] 김민준 팀장 (유어미디어): 물론입니다. ESG 경영이 중요해진 만큼, 많은 기업과 매체들이 좋은 공익 캠페인에 참여할 의사가 있습니다. 저희가 그 다리가 되어 드리겠습니다. 라디오 광고 역시, 제작된 TV 광고의 오디오를 활용하거나 감동적인 시민의 목소리를 담는 방식으로 비용 효율적으로 제작할 수 있습니다.\r\n[00:07:22] 김선우 국장 (초록숲 재단): 구체적인 전략을 들으니 훨씬 더 신뢰가 갑니다. 오늘 논의한 내용을 바탕으로 한 공식 제안서를 받아볼 수 있을까요?\r\n[00:07:40] 김민준 팀장 (유어미디어): 네, 당연합니다. 오늘 말씀 나눈 \"숨결이 모여 숲이 될 때\" 콘셉트와 미디어 후원 전략을 포함한 공식 제안서를 이번 주 금요일(24일)까지 보내드리겠습니다.\r\n[00:08:01] 김선우 국장 (초록숲 재단): 네, 감사합니다. 오늘 정말 유익한 시간이었습니다. 긍정적인 방향으로 함께할 수 있기를 기대하겠습니다.\r\n[00:08:18] 김민준 팀장 (유어미디어): 저희도 마찬가지입니다. 귀한 캠페인에 함께할 기회를 주셔서 감사합니다. 제안서 준비해서 다시 연락드리겠습니다.\r\n(서로 감사 인사를 나누며 회의 종료)\r\n(회의 종료: 2:55)\r\n",
+          "submittedAt": "2025-10-27T17:18:42.312+09:00",
+          "formMode": "test"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Copy file1": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a document": {
+      "main": [
+        [
+          {
+            "node": "Download file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Copy file1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file1": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Update a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "afbbc3b2-a785-4df1-8f5f-81618db43349",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "0e9c7fec5e91696143ba8bf69309f0b2604712b6e8ae7c6a8e96ee4cbeb2f8a2"
+  },
+  "id": "nFiGRZ8p5WOGyixc",
+  "tags": []
+}
