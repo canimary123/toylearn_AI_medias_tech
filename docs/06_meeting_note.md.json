@@ -268,6 +268,101 @@
           "name": "Gmail account"
         }
       }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1fwAU4aI17FDh85APsV3ooJd4athq5ityJ5UathAKqNI/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "시트1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fwAU4aI17FDh85APsV3ooJd4athq5ityJ5UathAKqNI/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "주관자_Email": "={{ $('On form submission').item.json['주관자_Email'] }}",
+            "참여 인원": "={{ $('On form submission').item.json['참여 인원'] }}",
+            "회의 주제": "={{ $('On form submission').item.json['회의 주제'] }}",
+            "회의 내용": "={{ $('On form submission').item.json['회의 내용'] }}",
+            "날짜(입력날짜)": "={{ $('On form submission').item.json.submittedAt }}"
+          },
+          "matchingColumns": [
+            "주관자_Email"
+          ],
+          "schema": [
+            {
+              "id": "주관자_Email",
+              "displayName": "주관자_Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "참여 인원",
+              "displayName": "참여 인원",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "회의 주제",
+              "displayName": "회의 주제",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "회의 내용",
+              "displayName": "회의 내용",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "날짜(입력날짜)",
+              "displayName": "날짜(입력날짜)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2192,
+        640
+      ],
+      "id": "5eba73ad-f995-4382-a2d6-6bb808a64d0f",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5yCo6E6ZVFSxFWWn",
+          "name": "Google Sheets account"
+        }
+      }
     }
   ],
   "pinData": {
@@ -357,13 +452,24 @@
           }
         ]
       ]
+    },
+    "Upload file": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "afbbc3b2-a785-4df1-8f5f-81618db43349",
+  "versionId": "e31a4876-d31c-48ba-ba18-721129b0cce2",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "0e9c7fec5e91696143ba8bf69309f0b2604712b6e8ae7c6a8e96ee4cbeb2f8a2"
