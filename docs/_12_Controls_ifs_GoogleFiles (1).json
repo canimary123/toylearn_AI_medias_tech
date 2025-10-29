@@ -561,8 +561,8 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        1088,
-        432
+        1120,
+        512
       ],
       "id": "64b83024-1028-4ae3-828d-4575226ae811",
       "name": "Move file3",
@@ -582,8 +582,8 @@
       "type": "n8n-nodes-base.telegram",
       "typeVersion": 1.2,
       "position": [
-        832,
-        432
+        848,
+        512
       ],
       "id": "17b8a850-c485-4a2b-8bd9-bfd152171ca8",
       "name": "Send a text message",
@@ -750,6 +750,101 @@
       ],
       "id": "52ff339e-8956-46ec-ad77-59feaee31a0f",
       "name": "Extract from File1"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1dyvj9-LEm7YpSsQ2FxGjGMefG2Isg_Ai0tfx0TtpiEc/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "2025_10",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1dyvj9-LEm7YpSsQ2FxGjGMefG2Isg_Ai0tfx0TtpiEc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "한줄 정리": "={{ $json.content.parts[0].text }}",
+            "입력 날짜": "={{ $('Google Drive Trigger').item.json.modifiedTime }}",
+            "파일 종류": "={{ $('Google Drive Trigger').item.json.mimeType }}",
+            "파일명": "={{ $('Google Drive Trigger').item.json.name }}",
+            "파일 링크": "={{ $('Google Drive Trigger').item.json.webViewLink }}"
+          },
+          "matchingColumns": [
+            "파일 링크"
+          ],
+          "schema": [
+            {
+              "id": "한줄 정리",
+              "displayName": "한줄 정리",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "입력 날짜",
+              "displayName": "입력 날짜",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "파일 종류",
+              "displayName": "파일 종류",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "파일명",
+              "displayName": "파일명",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "파일 링크",
+              "displayName": "파일 링크",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        304,
+        512
+      ],
+      "id": "2e2b2ebd-18f3-4af9-98c0-2093845b6658",
+      "name": "Append or update row in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5yCo6E6ZVFSxFWWn",
+          "name": "Google Sheets account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -966,7 +1061,7 @@
         ],
         [
           {
-            "node": "Send a text message",
+            "node": "Append or update row in sheet1",
             "type": "main",
             "index": 0
           }
@@ -1005,13 +1100,24 @@
           }
         ]
       ]
+    },
+    "Append or update row in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "32201645-a74d-4d65-927e-4b7868ae9d57",
+  "versionId": "975ca733-1f30-47e0-9d08-beda474c169f",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "0e9c7fec5e91696143ba8bf69309f0b2604712b6e8ae7c6a8e96ee4cbeb2f8a2"
