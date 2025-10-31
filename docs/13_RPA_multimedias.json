@@ -1,0 +1,582 @@
+{
+  "name": "13_RPA_multimedias",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 10
+            },
+            {}
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -1312,
+        -304
+      ],
+      "id": "79e211d0-321a-4d4b-94f0-86fd686f9787",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "limit": 1,
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "https://drive.google.com/drive/folders/1wyo9E5IwcKDa4bdU-kQz52RfXAjbD-ff",
+            "mode": "url"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -960,
+        -304
+      ],
+      "id": "d599f2d6-7a99-402e-8e46-4a0d002270bb",
+      "name": "Search files and folders",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Kk2FGIDj2nKm2njN",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=당신은 30년 경력의 advertisement전문가이자 pain point solution 전문가야.\n\n고객사와의 모든 가격 및 최종 아이디어가 도출된 상태에서 아래의 내용을 바탕으로\n\n종합 미디어 에이전시 서비스 표준 업무제안서를 작성해 줘.\n\n반드시 고객의 Pain Point를 분석하고 해결 방안도 도출해야 해.\n\n\n**회의록 양식**은 아래 출력형식 Markdown format을 바탕으로  \n\n반드시 md file 형식으로 출력. \n\n담당자는 이금락, 010-4807-5236, windows2xp69@gmail.com \n\n[출력 형식: md file 형식] \n\n가격정책 참조 : https://docs.google.com/document/d/1KLU4oAAprirq1TxqV0p-rOtNxQEIuWCn5Mcd8sbXr8Y/edit?tab=t.0#heading=h.v65s6py9gn3b \n\n회의록1 : https://docs.google.com/document/d/1sNeN3GRr044wWSfXkF7h12mQ9arGzgoEdD_eUM8YLOU/edit?tab=t.0 \n\n회의록2 : https://docs.google.com/document/d/1wWXJxOSIHSp9AsurrPVg-xY4z-3VQhSrKiCSeEfgAys/edit?tab=t.0 \n\n안녕하십니까, [유어미디어 프로젝트 담당자 이금락]입니다. 지난번 논의(또는 보내주신 문의)를 바탕으로, [귀사명]의 성공적인 [프로젝트명] 캠페인을 위한 맞춤형 전략 제안서 보내드립니다. \n\n저희는 귀사의 비즈니스 목표인 '[클라이언트의 핵심 목표, 예: 신규 고객 확보 및 브랜드 인지도 상승]'을 달성하기 위한 최적의 실행 방안을 깊이 고민했습니다. 그 결과, 예산과 목표 범위에 따라 선택하실 수 있도록 다음과 같이 세 가지 솔루션을 제안 드립니다. \n\n각 제안은 단순히 업무의 양을 조절한 것이 아니라, 목표 달성 수준과 전략의 깊이에 따라 설계된 전문적인 솔루션임을 먼저 말씀드립니다. \n\n[프로젝트명] 광고 캠페인 제안서 \n\n| 구분 | **제안 A: [패키지명] | **제안 B: [패키지명] | **제안 C: [패키지명] |\n\n\n| :--- | :--- | :--- | :--- | \n\n| **핵심 목표** | | | | \n\n| **월 대행 수수료** | | | | \n\n| **광고 매체비** | | | | \n\n| **포함 내역** | | | | \n\n| **기대 효과** | | | |\n \n\n[추천 내용] \n\n귀사의 요구에 다음과 같은 제안서를 보내드립니다.\n\n결론적으로, 제안드린 내용은 귀사의 구체적인 상황과 예산편성에 맞춰 조율 가능함을 알려드립니다. \n\n첨부해 드리는 미디어별 제안서를 함께 검토해 주시면 감사하겠습니다. 제안서의 구체적인 내용에 대해 설명드리고, 궁금하신 점에 답변을 드리는 시간을 갖고자 합니다.\n\n다음 주 중 일정을 마련하여 미팅일자나 시간을 알려 주시면, 상세한 설명을 위한 미팅(온/오프라인)을 준비하도록 하겠습니다. \n\n귀사와의 성공적인 파트너십을 만들어가길 기대하겠습니다.\n \n\n[이금락] 드림\n\n[유어미디어 프로젝터 담당자]\n\n[연락처 : 010-1234-5678]\n\n[EMail : windows2xp69@gmail.com]"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        -560,
+        -288
+      ],
+      "id": "fac8b792-192d-4fad-bd28-5a4bc9a2f136",
+      "name": "Message a model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "tVP4ThyOevCciRUk",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "qped123@gmail.com",
+        "subject": "n8n test",
+        "message": "={{ $('Schedule Trigger').item.json.Month }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        -128,
+        -320
+      ],
+      "id": "c6cd37db-9d7b-4450-815b-71c27feb7997",
+      "name": "Send a message",
+      "webhookId": "da13107c-38a3-427c-a115-914e7d888056",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "laazauV6POfpfKA1",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "회의에 참석한 유어미디어(마케팅 에이전시) 실무담당자입니다.\n\n전달드린 링크의 회의 녹취록으로 클라이언트 미팅 회의록 작성.\n**회의록 양식**은 아래 출력형식(Markdown format)으로 출력. 반드시 MD파일형식으로 출력.\n인용/출처 표시 없이 내용만 알려주세요.\n\n유어미디어의 담당자는 김진현 캠페인 전략팀장으로 변경하여 작성. (김민준 캠페인 전략팀장, 이수영 크리에이티브 디렉터는 삭제)\n\n녹취회의록: https://docs.google.com/document/d/1wWXJxOSIHSp9AsurrPVg-xY4z-3VQhSrKiCSeEfgAys/edit?usp=sharing\n\n녹취회의록: https://docs.google.com/document/d/1sNeN3GRr044wWSfXkF7h12mQ9arGzgoEdD_eUM8YLOU/edit?usp=sharing\n\n\n[**회의록 양식**|Markdown format]\n# [프로젝트 명] 클라이언트 미팅 회의록\n\n| 항목 | 내용 |\n| :--- | :--- |\n| **회의 일시** | 202X년 XX월 XX일 (요일) OO:OO ~ OO:OO (총 X시간) |\n| **회의 장소** | (예: OO빌딩 대회의실 / 온라인 Zoom) |\n| **작성자** | (이름/직책) |\n| **배포일** | 202X년 XX월 XX일 |\n\n---\n\n## 1. 참석자 정보\n\n| 구분 | 참석자 (소속/직책) |\n| :--- | :--- |\n| **클라이언트 (고객사명)** | OOO 팀장, OOO 매니저 등 |\n| **에이전시 (회사명)** | OOO AE, OOO PM, OOO 디자이너 등 |\n| **(불참자)** | (이름/사유 - 필요한 경우 기재) |\n\n---\n\n## 2. 회의 안건 (Agenda)\n\n* (예시)\n    1.  지난 Action Item 리뷰 (5분)\n    2.  [캠페인 명] 중간 성과 보고 (20분)\n    3.  차주 실행안 (광고 소재 및 매체 운영) 논의 (25분)\n    4.  이슈 및 기타 사항 논의 (10분)\n\n---\n\n## 3. 주요 논의 내용 (Discussion)\n\n* **[안건 1. 지난 Action Item 리뷰]**\n    * (내용) 지난 회의(X/XX)에서 결정된 'A 소재 시안 전달' 건 완료됨.\n    * (내용) 'B 매체 효율 분석 리포트' 금일 오전 공유 완료. 클라이언트 측 확인 예정.\n\n* **[안건 2. [캠페인 명] 중간 성과 보고 (X/XX ~ X/XX)]**\n    * (에이전시) 캠페인 핵심 성과(KPI)인 'OO' 수치 X% 달성. 주요 타겟 도달률 목표치 초과 달성.\n    * (에이전시) A 매체 대비 B 매체 효율(ROAS)이 X% 높게 나타남. (상세 리포트 별첨)\n    * (클라이언트) C 타겟 그룹에서의 전환율이 예상보다 낮은 원인 분석 요청.\n    * (클라이언트) 성과가 좋은 B 매체 소재 추가 아이디어 제안 요청.\n\n* **[안건 3. 차주 실행안 논의]**\n    * (에이전시) B 매체 효율 극대화를 위한 신규 소재 시안 3종 제안. (시안 별첨)\n    * (클라이언트) 2번 시안을 메인으로 하되, 'OOO' 문구 수정을 요청.\n    * (논의) C 타겟 그룹 반응률 개선을 위해 'XXX' 메시지를 강조하는 프로모션 기획 논의.\n\n* **[안건 4. 이슈 및 기타 사항]**\n    * (클라이언트) 경쟁사 'YYY'에서 유사 프로모션 시작. 대응 방안 논의 필요.\n    * (에이전시) 주말 이슈 발생 시 비상 연락망 재확인.\n\n---\n\n## 4. 결정 사항 및 Action Item\n\n*회의에서 결정된 사항과 향후 조치 계획을 명확히 기재합니다.*\n\n| No. | Action Item (수행 업무) | 담당자 (소속) | 기한 (Due) | 비고 (상태) |\n| :--- | :--- | :--- | :--- | :--- |\n| 1 | C 타겟 그룹 전환율 저조 원인 분석 리포트 전달 | OOO 매니저 (에이전시) | X월 XX일 (금) | 진행 중 |\n| 2 | B 매체 추가 소재 아이디어 (3종) 기획안 전달 | OOO AE (에이전시) | X월 XX일 (수) | 신규 |\n| 3 | 2번 시안 문구 수정본 (V2) 전달 | OOO 디자이너 (에이전시) | X월 XX일 (화) | 신규 |\n| 4 | B 매체 추가 소재 최종 컨펌 | OOO 팀장 (클라이언트) | X월 XX일 (목) | 예정 |\n| 5 | 경쟁사 'YYY' 동향 분석 및 대응 전략 제안 | OOO PM (에이전시) | X월 XX일 (금) | 신규 |\n\n---\n\n## 5. 차기 회의 일정 (Next Meeting)\n\n* **일시:** 202X년 XX월 XX일 (요일) OO:OO\n* **주요 안건:** (예: X월 마케팅 성과 리뷰 및 N분기 전략 논의)\n\n---"
+            }
+          ]
+        },
+        "jsonOutput": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        -128,
+        -128
+      ],
+      "id": "2458e5f0-69be-42b3-b946-0966a0cc5ff8",
+      "name": "Message a model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "tVP4ThyOevCciRUk",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Search files and folders').item.json.id }}",
+          "mode": "id"
+        },
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "https://drive.google.com/drive/folders/13b4eVB4XKj0xbPkOA1An9ede7Yc_jbDb",
+          "mode": "url"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        304,
+        -128
+      ],
+      "id": "b71b6c15-0c4d-475d-9339-1f9b7ce8ddab",
+      "name": "Move file1",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Kk2FGIDj2nKm2njN",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "{\n  \"nodes\": [\n    {\n      \"parameters\": {\n        \"modelId\": {\n          \"__rl\": true,\n          \"mode\": \"list\",\n          \"value\": \"\"\n        },\n        \"messages\": {\n          \"values\": [\n            {\n              \"content\": \"회의에 참석한 유어미디어(마케팅 에이전시) 실무담당자입니다.\\n\\n전달드린 링크의 회의 녹취록으로 클라이언트 미팅 회의록 작성.\\n**회의록 양식**은 아래 출력형식(Markdown format)으로 출력. 반드시 MD파일형식으로 출력.\\n인용/출처 표시 없이 내용만 알려주세요.\\n\\n유어미디어의 담당자는 김진현 캠페인 전략팀장으로 변경하여 작성. (김민준 캠페인 전략팀장, 이수영 크리에이티브 디렉터는 삭제)\\n\\n녹취회의록: https://docs.google.com/document/d/1wWXJxOSIHSp9AsurrPVg-xY4z-3VQhSrKiCSeEfgAys/edit?usp=sharing\\n\\n녹취회의록: https://docs.google.com/document/d/1sNeN3GRr044wWSfXkF7h12mQ9arGzgoEdD_eUM8YLOU/edit?usp=sharing\\n\\n\\n[**회의록 양식**|Markdown format]\\n# [프로젝트 명] 클라이언트 미팅 회의록\\n\\n| 항목 | 내용 |\\n| :--- | :--- |\\n| **회의 일시** | 202X년 XX월 XX일 (요일) OO:OO ~ OO:OO (총 X시간) |\\n| **회의 장소** | (예: OO빌딩 대회의실 / 온라인 Zoom) |\\n| **작성자** | (이름/직책) |\\n| **배포일** | 202X년 XX월 XX일 |\\n\\n---\\n\\n## 1. 참석자 정보\\n\\n| 구분 | 참석자 (소속/직책) |\\n| :--- | :--- |\\n| **클라이언트 (고객사명)** | OOO 팀장, OOO 매니저 등 |\\n| **에이전시 (회사명)** | OOO AE, OOO PM, OOO 디자이너 등 |\\n| **(불참자)** | (이름/사유 - 필요한 경우 기재) |\\n\\n---\\n\\n## 2. 회의 안건 (Agenda)\\n\\n* (예시)\\n    1.  지난 Action Item 리뷰 (5분)\\n    2.  [캠페인 명] 중간 성과 보고 (20분)\\n    3.  차주 실행안 (광고 소재 및 매체 운영) 논의 (25분)\\n    4.  이슈 및 기타 사항 논의 (10분)\\n\\n---\\n\\n## 3. 주요 논의 내용 (Discussion)\\n\\n* **[안건 1. 지난 Action Item 리뷰]**\\n    * (내용) 지난 회의(X/XX)에서 결정된 'A 소재 시안 전달' 건 완료됨.\\n    * (내용) 'B 매체 효율 분석 리포트' 금일 오전 공유 완료. 클라이언트 측 확인 예정.\\n\\n* **[안건 2. [캠페인 명] 중간 성과 보고 (X/XX ~ X/XX)]**\\n    * (에이전시) 캠페인 핵심 성과(KPI)인 'OO' 수치 X% 달성. 주요 타겟 도달률 목표치 초과 달성.\\n    * (에이전시) A 매체 대비 B 매체 효율(ROAS)이 X% 높게 나타남. (상세 리포트 별첨)\\n    * (클라이언트) C 타겟 그룹에서의 전환율이 예상보다 낮은 원인 분석 요청.\\n    * (클라이언트) 성과가 좋은 B 매체 소재 추가 아이디어 제안 요청.\\n\\n* **[안건 3. 차주 실행안 논의]**\\n    * (에이전시) B 매체 효율 극대화를 위한 신규 소재 시안 3종 제안. (시안 별첨)\\n    * (클라이언트) 2번 시안을 메인으로 하되, 'OOO' 문구 수정을 요청.\\n    * (논의) C 타겟 그룹 반응률 개선을 위해 'XXX' 메시지를 강조하는 프로모션 기획 논의.\\n\\n* **[안건 4. 이슈 및 기타 사항]**\\n    * (클라이언트) 경쟁사 'YYY'에서 유사 프로모션 시작. 대응 방안 논의 필요.\\n    * (에이전시) 주말 이슈 발생 시 비상 연락망 재확인.\\n\\n---\\n\\n## 4. 결정 사항 및 Action Item\\n\\n*회의에서 결정된 사항과 향후 조치 계획을 명확히 기재합니다.*\\n\\n| No. | Action Item (수행 업무) | 담당자 (소속) | 기한 (Due) | 비고 (상태) |\\n| :--- | :--- | :--- | :--- | :--- |\\n| 1 | C 타겟 그룹 전환율 저조 원인 분석 리포트 전달 | OOO 매니저 (에이전시) | X월 XX일 (금) | 진행 중 |\\n| 2 | B 매체 추가 소재 아이디어 (3종) 기획안 전달 | OOO AE (에이전시) | X월 XX일 (수) | 신규 |\\n| 3 | 2번 시안 문구 수정본 (V2) 전달 | OOO 디자이너 (에이전시) | X월 XX일 (화) | 신규 |\\n| 4 | B 매체 추가 소재 최종 컨펌 | OOO 팀장 (클라이언트) | X월 XX일 (목) | 예정 |\\n| 5 | 경쟁사 'YYY' 동향 분석 및 대응 전략 제안 | OOO PM (에이전시) | X월 XX일 (금) | 신규 |\\n\\n---\\n\\n## 5. 차기 회의 일정 (Next Meeting)\\n\\n* **일시:** 202X년 XX월 XX일 (요일) OO:OO\\n* **주요 안건:** (예: X월 마케팅 성과 리뷰 및 N분기 전략 논의)\\n\\n---\"\n            }\n          ]\n        },\n        \"options\": {}\n      },\n      \"type\": \"@n8n/n8n-nodes-langchain.googleGemini\",\n      \"typeVersion\": 1,\n      \"position\": [\n        528,\n        -272\n      ],\n      \"id\": \"2458e5f0-69be-42b3-b946-0966a0cc5ff8\",\n      \"name\": \"Message a model1\"\n    }\n  ],\n  \"connections\": {},\n  \"pinData\": {},\n  \"meta\": {\n    \"templateCredsSetupCompleted\": true,\n    \"instanceId\": \"4326a13d274c0cd052849b3cd7331c8c447ac919d22e3c99aeeb4aa4f805eb78\"\n  }\n}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        576,
+        -128
+      ],
+      "id": "7c38be36-7a29-431a-99e1-62278611f49a",
+      "name": "Message a model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "tVP4ThyOevCciRUk",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $('Search files and folders').item.json.id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "text": "={{ $json.content.parts[0].text }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        944,
+        -128
+      ],
+      "id": "be4968c1-56a0-4c37-b575-2efe112bc47d",
+      "name": "Update a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "LGqckXEhpzAnzfMX",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-2.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-2.5-flash"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "# 1. 역할 (Role)\n당신은 다수의 프로젝트를 총괄하는 최고 수준의 PMO(Project Management Office) 분석가입니다. 당신의 임무는 여러 팀에서 제출한 주간 보고 데이터(Raw Data)를 취합, 분석, 정제하여 최고 경영진(C-Level)이 즉각적인 의사결정을 내릴 수 있도록 1페이지 분량의 핵심 요약 보고서를 작성하는 것입니다.\n# 2. 목표 (Goal)\n아래 [INPUT_DATA]에 입력된 모든 프로젝트의 주간 보고를 종합적으로 분석합니다. 이 분석을 바탕으로, 경영진의 즉각적인 개입이 필요한 '핵심 리스크'와 '우선순위'를 식별하고, 전반적인 진행 상황을 가장 함축적인 언어로 요약하여 [OUTPUT_FORMAT]에 맞춰 보고서를 생성합니다.\n# 3. 입력 데이터 (Input Data)[INPUT_DATA_START]\n{https://docs.google.com/document/d/1cpdXWthSPkbAqrZDOFr_aj20OjmCvUPOTby6nD2dV-I/edit?usp=sharing}[INPUT_DATA_END]\n# 4. 분석 규칙 (Analysis Rules)\n\n리스크 및 우선순위 판별 (Risk & Priority Identification):\n[Red Flag] (즉각 조치 필요): 경영진의 즉각적인 의사결정(예: 'CEO 승인 대기')이 필요하거나, 프로젝트의 핵심 마일스톤에 심각한 지연(예: 3일 이상 지연) 또는 예산 초과(예: 진행률 대비 예산 집행률 10% 이상 초과)가 발생한 경우를 최우선으로 식별합니다.\n[Yellow Flag] (모니터링 필요): 잠재적 리스크(예: '요구사항 추가', '일정 조율 중')나 경미한 지연이 발생하여 지속적인 관리가 필요한 사항을 식별합니다.\n[Green Flag] (순항 중): 계획대로 진행 중이거나(예: 진행률/예산 정상), 테스트 및 완료 단계에 진입한 프로젝트를 식별합니다.\n종합 분석 (Synthesis): 개별 프로젝트 현황을 나열하는 것이 아니라, 전체 포트폴리오 관점에서 \"총 X개 프로젝트 중 O개 순항, O개 일부 지연...\"과 같이 종합적인 현황을 먼저 제시합니다.\n함축 및 요약 (Condensation): '완료 작업', '다음 주 계획' 등 실무적인 내용은 보고서에 포함하지 않습니다. 오직 '주요 이슈', '진행률', '리스크'를 중심으로 경영진이 알아야 할 핵심 결과와 필요한 조치(Required Action) 위주로 요약합니다.\n형식 준수 (Strict Formatting): 반드시 아래 [OUTPUT_FORMAT]에서 정의한 형식과 목차를 정확히 따라야 합니다.\n# 5. 출력 형식 (OUTPUT_FORMAT:MD 파일 format으로 작성)\n[YYYY년 MM월 N주차] 주간 프로젝트 통합 현황 (Executive Summary)\n1. 종합 현황 (Overall Status)\n\n(예: 총 X개 프로젝트 진행 중, O개 순항, O개 일부 지연. 금주 핵심 마일스톤 O건 달성.)\n2. [Red Flag] 즉각적인 조치 및 의사결정 필요\n\n[프로젝트명]: (핵심 이슈 요약) → (필요한 조치/의사결정 사항)\n(예: [브랜드 리뉴얼]: CEO 최종 승인 지연으로 전체 캠페인 일정 중단 위기 → 금주 내 최종 시안 확정 시급)\n(예: [신규 ERP]: 외부 벤더 일정 조율 지연 (3일)으로 핵심 모듈 개발 착수 불가 → IT운영팀-벤더사 임원급 협의 지원 필요)\n3. [Yellow Flag] 주요 이슈 및 잠재 리스크\n\n[프로젝트명]: (잠재 리스크 요약)\n(예: [신규 ERP]: 회계팀 요구사항 추가 접수. 범위 증가로 인한 일정/예산 영향 분석 중.)\n[프로젝트명]: (기타 모니터링 필요 사항)\n4. [Green Flag] 순항 중인 프로젝트\n\n[고객 데이터 분석]: 최종 테스트 단계 진입, 차주 오픈 예정. (진행률 85%)\n(기타 정상 진행 중인 프로젝트명)"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1,
+      "position": [
+        1312,
+        -128
+      ],
+      "id": "f2c9cce1-af38-47d7-8020-635e6c3aba7e",
+      "name": "Message a model3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "tVP4ThyOevCciRUk",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "https://drive.google.com/drive/folders/1K3YhNF7zw5_jubOnSVghkkr4KcRpwg-K",
+          "mode": "url"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1904,
+        -128
+      ],
+      "id": "98db6bcf-8e48-44f5-87d9-45141916330d",
+      "name": "Move file3",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Kk2FGIDj2nKm2njN",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "={{ $json.id }}"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        -688,
+        -96
+      ],
+      "id": "21e44ca9-6992-4ad9-9e84-5be96b951349",
+      "name": "Get a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "UQj1953YLRiOyGG1",
+          "name": "Google Docs account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "folder",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "https://drive.google.com/drive/folders/1v1UvzuY2iRopAAw3Wr2Ib90Jv_-I6vDG",
+          "mode": "url",
+          "__regex": "https:\\/\\/drive\\.google\\.com(?:\\/.*|)\\/folders\\/([0-9a-zA-Z\\-_]+)(?:\\/.*|)"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1152,
+        -128
+      ],
+      "id": "49934e60-0adf-497e-83f7-9f90de26cd15",
+      "name": "Create folder",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "Kk2FGIDj2nKm2njN",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "folderId": "1K3YhNF7zw5_jubOnSVghkkr4KcRpwg-K",
+        "title": "={{ $json.content.parts[0].text }}"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1648,
+        -128
+      ],
+      "id": "a1138fe9-c6e7-4b63-ba33-2b4d56d6969e",
+      "name": "Create a document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "LGqckXEhpzAnzfMX",
+          "name": "Google Docs account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Message a model1": [
+      {
+        "json": {
+          "content": {
+            "parts": [
+              {
+                "text": "\"# PPLUS 주간 캠페인 성과 보고 및 운영 회의\\n\\n| 항목 | 내용 |\\n| :--- | :--- |\\n| **회의 일시** | 2024년 5월 17일 (금) 14:00 ~ 15:00 (총 1시간) |\\n| **회의 장소** | 온라인 Zoom |\\n| **작성자** | 김진현 캠페인 전략팀장 (유어미디어) |\\n| **배포일** | 2024년 5월 17일 |\\n\\n---\\n\\n## 1. 참석자 정보\\n\\n| 구분 | 참석자 (소속/직책) |\\n| :--- | :--- |\\n| **클라이언트 (피플러스)** | 정 팀장, 최 매니저 |\\n| **에이전시 (유어미디어)** | 김진현 캠페인 전략팀장 |\\n| **(불참자)** | - |\\n\\n---\\n\\n## 2. 회의 안건 (Agenda)\\n\\n* 1. 지난 Action Item 점검\\n* 2. 주간 캠페인 성과 보고 (5/10 ~ 5/16)\\n* 3. 광고 소재 및 매체 운영 논의\\n* 4. 다음 주 운영 방향 및 예산 논의\\n* 5. 이슈 및 기타 사항\\n\\n---\\n\\n## 3. 주요 논의 내용 (Discussion)\\n\\n* **[안건 1. 지난 Action Item 점검]**\\n    * (내용) 지난 회의(5/10)에서 논의된 A/B 테스트 결과 리포트 공유 완료. (클라이언트) 확인 후 피드백 전달 예정.\\n    * (내용) 신규 소재 기획안 제안 완료. (클라이언트) 숏폼 콘텐츠 기획 방향과 연계하여 검토 중.\\n    * (내용) 인플루언서 섭외안 및 숏폼 콘텐츠 제작 방향 관련, (클라이언트) 피플러스 내부에서 추가 아이디어 취합 후 공유 예정.\\n\\n* **[안건 2. 주간 캠페인 성과 보고 (5/10 ~ 5/16)]**\\n    * (에이전시) 주간 캠페인 ROAS X% 달성, 전환율 Y% 기록. 지난주 대비 CPI 개선 확인.\\n    * (에이전시) 특정 매체(B 매체)의 효율(ROAS)이 높게 나타나고 있으며, 해당 매체의 신규 소재가 반응률이 좋음.\\n    * (클라이언트) 특정 타겟 그룹에서의 전환율이 여전히 낮은 원인 분석 요청. 특히 특정 지역 타겟의 성과 개선 필요성 언급.\\n    * (클라이언트) 전환율이 높은 매체와 소재에 예산 집중 및 추가 기회 발굴 요청.\\n\\n* **[안건 3. 광고 소재 및 매체 운영 논의]**\\n    * (에이전시) B 매체 효율 극대화를 위한 신규 소재 시안 2종 제안. (상세 시안 별첨)\\n    * (클라이언트) 제안된 신규 소재 중 1번 시안의 메시지 명확성을 높이는 방향으로 수정 요청. 특히 혜택 강조 문구 수정 필요.\\n    * (에이전시) 랜딩 페이지의 이탈률이 높은 지점에 대한 개선 필요성 제기. UI/UX 개선 방안 논의.\\n    * (클라이언트) 랜딩 페이지 개선안과 더불어 A/B 테스트를 통해 최적화 진행 요청.\\n\\n* **[안건 4. 다음 주 운영 방향 및 예산 논의]**\\n    * (에이전시) 효율이 낮은 매체는 예산을 축소하고, 효율이 높은 B 매체 및 신규 소재에 예산을 집중할 것을 제안.\\n    * (클라이언트) 제안에 동의하며, 예산 조정 후 ROAS 개선 목표치를 구체적으로 설정하여 다음 주에 공유 요청.\\n    * (논의) 캠페인 전반적인 예산 소진 현황 및 효율 극대화를 위한 추가 예산 투입 여부 검토.\\n\\n* **[안건 5. 이슈 및 기타 사항]**\\n    * (클라이언트) 경쟁사 '스퀘어'에서 유사한 컨셉의 프로모션을 시작한 동향 포착. 대응 방안 논의 요청.\\n    * (에이전시) 주말 및 야간 이슈 발생 시 신속한 대응을 위한 비상 연락망 업데이트 제안. (클라이언트) 연락망 공유 및 확인 요청.\\n\\n---\\n\\n## 4. 결정 사항 및 Action Item\\n\\n| No. | Action Item (수행 업무) | 담당자 (소속) | 기한 (Due) | 비고 (상태) |\\n| :--- | :--- | :--- | :--- | :--- |\\n| 1 | ROAS 개선을 위한 매체 및 타겟팅 최적화 방안 구체화 | 김진현 팀장 (유어미디어) | 5월 22일 (수) | 신규 |\\n| 2 | 신규 소재 2종 (1번 시안 문구 수정 반영) 제안 | 김진현 팀장 (유어미디어) | 5월 22일 (수) | 신규 |\\n| 3 | 랜딩 페이지 이탈률 개선을 위한 UI/UX 개선안 제안 | 김진현 팀장 (유어미디어) | 5월 24일 (금) | 신규 |\\n| 4 | 경쟁사 '스퀘어' 동향 분석 및 대응 전략 제안 | 김진현 팀장 (유어미디어) | 5월 24일 (금) | 신규 |\\n| 5 | 비상 연락망 업데이트 및 공유 | 정 팀장 (피플러스) / 김진현 팀장 (유어미디어) | 5월 17일 (금) | 완료 예정 |\\n| 6 | 다음 회의 안건 정리 및 공유 | 김진현 팀장 (유어미디어) | 5월 17일 (금) | 완료 예정 |\\n\\n---\\n\\n## 5. 차기 회의 일정 (Next Meeting)\\n\\n* **일시:** 2024년 5월 24일 (금) 14:00\\n* **주요 안건:** ROAS 개선안 검토, 신규 소재 최종 컨펌, 랜딩 페이지 개선안 논의\""
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      }
+    ],
+    "Message a model2": [
+      {
+        "json": {
+          "content": {
+            "parts": [
+              {
+                "text": "I cannot directly access external websites or the content of Google Docs links. Therefore, I am unable to read the meeting transcripts from the provided URLs:\n    *   `https://docs.google.com/document/d/1wWXJxOSIHSp9AsurrPVg-xY4z-3VQhSrKiCSeEfgAys/edit?usp=sharing`\n    *   `https://docs.google.com/document/d/1sNeN3GRr044wWSfXkF7h12mQ9arGzgoEdD_eUM8YLOU/edit?usp=sharing`\n\n    To generate the meeting minutes, please provide the *text content* of these meeting transcripts directly in your prompt.\n\n    However, I can demonstrate the *format* you requested and apply the specific instructions regarding the attendees for \"유어미디어\". I will fill in the content with *hypothetical information* to illustrate the expected output.\n\n    ---\n\n    ```markdown\n    # [브랜드명] 2024년 상반기 캠페인 클라이언트 미팅 회의록\n\n    | 항목 | 내용 |\n    | :--- | :--- |\n    | **회의 일시** | 2024년 05월 27일 (월) 10:00 ~ 11:30 (총 1시간 30분) |\n    | **회의 장소** | 온라인 Zoom |\n    | **작성자** | 김진현/캠페인 전략팀장 |\n    | **배포일** | 2024년 05월 27일 |\n\n    ---\n\n    ## 1. 참석자 정보\n\n    | 구분 | 참석자 (소속/직책) |\n    | :--- | :--- |\n    | **클라이언트 (ABC전자)** | 이선우 팀장, 박지영 매니저 |\n    | **에이전시 (유어미디어)** | 김진현 캠페인 전략팀장 |\n    | **(불참자)** | (없음) |\n\n    ---\n\n    ## 2. 회의 안건 (Agenda)\n\n    * (가상의 내용)\n        1. 지난 Action Item 리뷰 (10분)\n        2. '썸머 브리즈' 캠페인 1차 성과 보고 (30분)\n        3. 2차 캠페인 소재 및 매체 운영 전략 논의 (30분)\n        4. 신규 이벤트 프로모션 아이디어 검토 (15분)\n        5. 이슈 및 기타 사항 논의 (5분)\n\n    ---\n\n    ## 3. 주요 논의 내용 (Discussion)\n\n    * **[안건 1. 지난 Action Item 리뷰]**\n        * (내용) 지난 회의(05/20)에서 요청된 '경쟁사 X사 여름 캠페인 동향 보고서' 금일 오전 공유 완료. 클라이언트 측 확인 후 피드백 예정.\n        * (내용) '타겟 그룹별 광고 소재 A/B 테스트 결과' 보고서 공유 완료. A 소재가 B 소재 대비 클릭률 15% 높게 나타남.\n\n    * **[안건 2. '썸머 브리즈' 캠페인 1차 성과 보고 (05/20 ~ 05/26)]**\n        * (유어미디어) 캠페인 핵심 성과(KPI)인 '웹사이트 유입' 수치 목표치 110% 달성. 특히 Z세대 타겟 도달률이 예상치를 크게 상회함.\n        * (유어미디어) 주요 매체 중 인스타그램 스토리 광고의 전환율(구매)이 다른 매체 대비 20% 높게 나타남. 상세 데이터는 별도 리포트 참고.\n        * (클라이언트) 전환율은 좋으나, 인스타그램 유저들의 앱 내 구매까지의 이탈률에 대한 추가 분석 요청.\n        * (클라이언트) 유입된 Z세대 타겟의 재방문율을 높일 수 있는 방안 논의 필요.\n\n    * **[안건 3. 2차 캠페인 소재 및 매체 운영 전략 논의]**\n        * (유어미디어) 인스타그램 스토리 광고 효율 극대화를 위한 신규 소재 시안 3종 제안. (시안 별첨)\n        * (유어미디어) 유튜브 쇼츠 및 틱톡 등 숏폼 매체 확대를 통한 Z세대 도달 강화 전략 제안.\n        * (클라이언트) 숏폼 매체 확대는 긍정적이나, 광고 소재의 스토리텔링 강화 방안에 대한 아이디어 요청. '브랜드 스토리'를 자연스럽게 녹일 수 있는 방안 필요.\n        * (논의) 클라이언트 제품의 특징인 '친환경 소재'를 강조하는 메시지를 2차 캠페인 소재에 반영하기로 합의.\n\n    * **[안건 4. 신규 이벤트 프로모션 아이디어 검토]**\n        * (유어미디어) 여름 시즌을 겨냥한 '#나만의_썸머_챌린지' UGC(User-Generated Content) 이벤트 프로모션 기획안 제안.\n        * (클라이언트) 참신한 아이디어이나, 참여율을 높이기 위한 인센티브(경품) 강화 및 인플루언서 협업 방안 검토 요청.\n\n    * **[안건 5. 이슈 및 기타 사항]**\n        * (클라이언트) 다음 주 예정된 본사 마케팅 전략 회의에 유어미디어 측 참석 가능 여부 문의.\n        * (유어미디어) 김진현 팀장 참석 가능하며, 필요한 자료 사전 준비 예정.\n\n    ---\n\n    ## 4. 결정 사항 및 Action Item\n\n    *회의에서 결정된 사항과 향후 조치 계획을 명확히 기재합니다.*\n\n    | No. | Action Item (수행 업무) | 담당자 (소속) | 기한 (Due) | 비고 (상태) |\n    | :--- | :--- | :--- | :--- | :--- |\n    | 1 | 인스타그램 유저 앱 내 구매 이탈률 상세 분석 리포트 전달 | 김진현 팀장 (유어미디어) | 05월 29일 (수) | 진행 중 |\n    | 2 | Z세대 타겟 재방문율 증대 방안 및 숏폼 광고 스토리텔링 강화 아이디어 기획안 전달 | 김진현 팀장 (유어미디어) | 05월 31일 (금) | 신규 |\n    | 3 | 신규 소재 시안 3종에 '친환경 소재' 강조 문구 및 인플루언서 협업 아이디어 반영 후 재제안 | 김진현 팀장 (유어미디어) | 06월 03일 (월) | 신규 |\n    | 4 | '썸머 브리즈' 2차 캠페인 소재 및 숏폼 매체 운영 전략 최종 컨펌 | 이선우 팀장 (ABC전자) | 06월 05일 (수) | 예정 |\n    | 5 | 본사 마케팅 전략 회의 참석 (필요 자료 준비) | 김진현 팀장 (유어미디어) | 06월 07일 (금) | 예정 |\n\n    ---\n\n    ## 5. 차기 회의 일정 (Next Meeting)\n\n    *   **일시:** 2024년 06월 10일 (월) 10:00\n    *   **주요 안건:** 2차 캠페인 진행 상황 중간 점검 및 신규 이벤트 프로모션 최종 확정 논의\n\n    ---\n    ```"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      }
+    ],
+    "Message a model3": [
+      {
+        "json": {
+          "content": {
+            "parts": [
+              {
+                "text": "2024년 6월 3주차 주간 프로젝트 통합 현황 (Executive Summary)\n\n1.  **종합 현황 (Overall Status)**\n    총 6개 프로젝트 진행 중. 2개 프로젝트 순항 중, 2개 프로젝트 잠재적 리스크 또는 경미한 이슈 발생, 2개 프로젝트 즉각적인 경영진의 조치 및 의사결정이 시급합니다. 핵심 마일스톤 관련 2건의 중대한 리스크가 식별되었습니다.\n\n2.  **[Red Flag] 즉각적인 조치 및 의사결정 필요**\n    *   **[신규 ERP 시스템 구축]**: 외부 벤더 일정 조율 난항 및 3일 지연 발생. 진행률 대비 예산 12% 초과 집행.\n        → IT운영팀-벤더사 임원급 협의 지원 및 예산 집행 승인 검토 시급.\n    *   **[브랜드 리뉴얼 캠페인]**: CEO 최종 승인 지연으로 광고 집행 일정 전반에 불확실성 증대.\n        → 금주 내 최종 시안 확정을 위한 CEO 최종 승인 요청.\n\n3.  **[Yellow Flag] 주요 이슈 및 잠재 리스크**\n    *   **[모바일 앱 2.0 개발]**: 마케팅 팀의 신규 기능 추가 요구사항 접수. 범위 증가로 인한 일정 및 예산 영향 분석 중.\n    *   **[사내 인트라넷 업데이트]**: 일부 부서의 UI 개선 요청. 경미한 변경이나 지속적인 모니터링 필요.\n\n4.  **[Green Flag] 순항 중인 프로젝트**\n    *   [고객 데이터 분석 시스템 고도화]: 최종 테스트 단계 진입, 차주 오픈 예정. (진행률 85%)\n    *   [온라인 교육 콘텐츠 제작]: 기획 및 시나리오 작성 순항 중. (진행률 20%)"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      }
+    ],
+    "Message a model": [
+      {
+        "json": {
+          "content": {
+            "parts": [
+              {
+                "text": "안녕하십니까, 유어미디어 프로젝트 담당자 이금락입니다. 지난번 논의를 바탕으로, 귀사의 성공적인 **디지털 마케팅 성과 최적화 캠페인**을 위한 맞춤형 전략 제안서를 보내드립니다.\n\n저희는 귀사의 비즈니스 목표인 '신규 고객 확보 및 브랜드 인지도 상승, 그리고 궁극적인 전환율 극대화'를 달성하기 위한 최적의 실행 방안을 깊이 고민했습니다. 특히, 귀사께서 겪고 계신 핵심적인 어려움, 즉 **Pain Point**를 분석하고 이를 해결하기 위한 전략적인 접근에 집중했습니다.\n\n### **고객 Pain Point 분석 및 해결 방안**\n\n귀사와의 심도 깊은 대화를 통해 다음과 같은 Pain Point를 파악했습니다.\n\n1.  **광고 효율성 저하 및 전환율 정체:** 다양한 SNS 채널을 확장했음에도 불구하고, 실질적인 유입과 전환율이 정체되어 광고 투자 대비 효과에 대한 고민이 깊으신 상황입니다.\n    *   **해결 방안:** 데이터 기반의 정교한 타겟팅 전략 수립 및 A/B 테스트를 통한 소재/매체 최적화. 고객 여정 분석을 통한 퍼널별 맞춤 메시지 전달로 전환율을 극대화합니다.\n2.  **광고 소재 제작 리소스 및 전문성 부족:** 내부 인력의 한계와 트렌드 변화에 대한 빠른 대응의 어려움으로 매력적인 광고 소재 제작에 어려움을 겪고 계십니다.\n    *   **해결 방안:** 유어미디어의 전문 크리에이티브 팀이 기획부터 제작(이미지, 영상, 숏폼 콘텐츠 등)까지 전담하여 고품질의 트렌디한 소재를 적시적소에 제공합니다.\n3.  **통합적인 마케팅 전략 부재 및 차별화의 어려움:** 각 채널별 개별 운영으로 시너지가 미흡하며, 경쟁사 대비 차별화된 마케팅 전략 수립에 대한 갈증이 있으십니다.\n    *   **해결 방안:** 브랜드의 핵심 가치를 담은 통합 커뮤니케이션 전략을 수립하고, 다채널 유기적 연동을 통해 일관된 메시지를 전달합니다. 인플루언서 및 바이럴 마케팅으로 브랜드 고유의 스토리를 확산시켜 경쟁 우위를 확보합니다.\n4.  **정확한 성과 측정 및 인사이트 부족:** 어떤 광고가 효과적이었는지, 투자 대비 성과는 어떠한지 명확하게 파악하기 어렵다는 점입니다.\n    *   **해결 방안:** KPI(핵심 성과 지표) 기반의 명확한 목표 설정과 함께 실시간 데이터 분석, 주간/월간 상세 보고서 제공을 통해 광고 성과를 투명하게 공개하고, 심층적인 인사이트를 도출하여 다음 전략에 반영합니다.\n5.  **콘텐츠 경쟁력 및 매체 운영 전문성 부족:** 특히 숏폼 콘텐츠(릴스, 쇼츠)와 블로그 체험단 등 바이럴 전략에 대한 전문적인 노하우가 부족하여 고민이 많으셨습니다.\n    *   **해결 방안:** 각 매체의 특성을 정확히 이해하고 타겟 고객에게 가장 효과적인 방식으로 소통하는 콘텐츠 전략(숏폼 제작, 블로그 체험단 운영, 인플루언서 섭외 등)을 실행하여 콘텐츠 경쟁력을 강화합니다.\n\n그 결과, 예산과 목표 범위에 따라 선택하실 수 있도록 다음과 같이 세 가지 솔루션을 제안 드립니다.\n\n각 제안은 단순히 업무의 양을 조절한 것이 아니라, 목표 달성 수준과 전략의 깊이, 그리고 귀사의 Pain Point를 근본적으로 해결하기 위한 전문적인 솔루션임을 먼저 말씀드립니다.\n\n### **디지털 마케팅 성과 최적화 캠페인 광고 캠페인 제안서**\n\n| 구분 | **제안 A: 성장 도약 패키지** | **제안 B: 시장 선도 패키지** | **제안 C: 혁신 리더십 패키지** |\n| :--- | :--- | :--- | :--- |\n| **핵심 목표** | 신규 고객 유입 및 핵심 채널 전환율 개선 | 브랜드 인지도 확장 및 통합 마케팅 성과 극대화, 경쟁 우위 확보 | 시장 지배력 강화 및 장기적 브랜드 가치 구축, 마케팅 혁신 주도 |\n| **월 대행 수수료** | 100만 원 | 200만 원 | 200만 원 이상 (맞춤형 협의) |\n| **광고 매체비** | 월 1,000만 원 내외 (협의 가능) | 월 2,000만 원 내외 (협의 가능, 매체비의 3% 대행 수수료 적용) | 월 3,000만 원 이상 (협의 가능, 매체비의 3% 대행 수수료 적용) |\n| **포함 내역** | - 주요 SNS (예: 인스타그램) 및 블로그 채널 운영 및 콘텐츠 기획 (월 X건 이미지/텍스트) <br>- 타겟 맞춤형 광고 캠페인 기획 및 집행 (선택 1~2개 매체) <br>- 기본적인 성과 측정 및 월간 보고서 제공 <br>- A/B 테스트를 통한 광고 소재 효율화 | - 다매체 통합 운영 및 전략 수립 (인스타그램, 유튜브 쇼츠, 블로그 등 핵심 채널) <br>- 고품질 콘텐츠 제작 (월 X건 이미지/영상/숏폼, 전문 카피라이팅 포함) <br>- 타겟별 심층 광고 캠페인 기획 및 최적화 (다수 매체 집행) <br>- 인플루언서 마케팅, 바이럴 캠페인 기획 및 실행 <br>- 정교한 데이터 분석 및 주간/월간 성과 리포팅 및 인사이트 제공 | - 전 채널 포괄 통합 전략 및 컨설팅 (광고, PR, CRM 연계 등) <br>- 트렌드 선도형 고품격 콘텐츠 무제한 기획/제작 및 실험적 캠페인 운영 <br>- AI/빅데이터 기반 타겟팅 및 초정밀 광고 최적화 <br>- 대규모 인플루언서/콜라보 마케팅, 독점 미디어 파트너십 <br>- 실시간 대시보드 및 예측 분석, 전략 컨설팅, 분기별 워크숍 |\n| **기대 효과** | - 안정적인 신규 고객 유입 및 핵심 채널 ROI 개선 <br>- 광고 효율성 증대 및 기본 콘텐츠 리소스 확보 <br>- 명확한 성과 파악으로 전략적 의사결정 지원 | - 브랜드 인지도 및 시장 점유율 유의미한 상승 <br>- 통합 마케팅을 통한 고객 전환율 및 매출 증대 <br>- 경쟁사 대비 차별화된 콘텐츠 경쟁력 확보 <br>- 데이터 기반의 투명하고 효과적인 성과 관리 | - 시장 리더십 확보 및 장기적인 브랜드 로열티 구축 <br>- 지속적인 마케팅 혁신을 통한 독보적인 비즈니스 성장 <br>- 예측 기반의 마케팅 전략으로 시장 변화에 선제적 대응 <br>- 모든 Pain Point의 근본적 해결 및 최상의 ROI 달성 |\n\n### **추천 내용**\n\n귀사의 현재 상황과 명확한 성장 목표, 그리고 월 1,000만원~3,000만원의 광고 매체비 예상 범위 등을 종합적으로 고려했을 때, **제안 B: 시장 선도 패키지**를 우선적으로 추천드립니다.\n\n이 패키지는 귀사께서 겪고 계신 광고 효율성 저하, 콘텐츠 제작의 어려움, 통합 전략 부재, 그리고 성과 측정의 불확실성이라는 핵심 Pain Point를 가장 효과적으로 해결할 수 있는 최적의 솔루션입니다. 다매체 통합 운영과 고품질 콘텐츠 제작, 인플루언서 마케팅을 통한 차별화된 전략을 통해 브랜드 인지도를 확장하고 실질적인 전환율 극대화를 이끌어낼 수 있을 것으로 확신합니다. 물론, 더 공격적인 시장 선점과 혁신을 원하신다면 **제안 C: 혁신 리더십 패키지** 또한 심도 있게 논의드릴 수 있습니다.\n\n결론적으로, 제안드린 내용은 귀사의 구체적인 상황과 예산 편성에 맞춰 조율 가능함을 다시 한번 알려드립니다.\n\n첨부해 드리는 미디어별 제안서를 함께 검토해 주시면 감사하겠습니다. 제안서의 구체적인 내용에 대해 설명드리고, 궁금하신 점에 답변을 드리는 시간을 갖고자 합니다.\n\n다음 주 중 일정을 마련하여 미팅 일자나 시간을 알려 주시면, 상세한 설명을 위한 미팅(온/오프라인)을 준비하도록 하겠습니다.\n\n귀사와의 성공적인 파트너십을 만들어가길 기대하겠습니다.\n\n이금락 드림\n유어미디어 프로젝트 담당자\n연락처 : 010-4807-5236\nEMail : windows2xp69@gmail.com"
+              }
+            ],
+            "role": "model"
+          },
+          "finishReason": "STOP",
+          "index": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search files and folders": {
+      "main": [
+        [
+          {
+            "node": "Get a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Move file1": {
+      "main": [
+        [
+          {
+            "node": "Message a model2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model2": {
+      "main": [
+        [
+          {
+            "node": "Update a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model3": {
+      "main": [
+        [
+          {
+            "node": "Create a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model1": {
+      "main": [
+        [
+          {
+            "node": "Move file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a document": {
+      "main": [
+        [
+          {
+            "node": "Create folder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a document": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create folder": {
+      "main": [
+        [
+          {
+            "node": "Message a model3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a document": {
+      "main": [
+        [
+          {
+            "node": "Move file3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "timeSavedPerExecution": 1
+  },
+  "versionId": "45284f70-f360-4521-b2c4-cfd22a53fd3c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4326a13d274c0cd052849b3cd7331c8c447ac919d22e3c99aeeb4aa4f805eb78"
+  },
+  "id": "OqcwTnvxCrDW7Pp5",
+  "tags": []
+}
