@@ -3,7 +3,7 @@ https://drive.google.com/drive/folders/1yk2dGrRZgoBidz-P9vtvRslfgJEkDOy3?usp=dri
 
 
 
-GPT-4o와 Gemini는 현재 Google Drive 링크를 직접 읽거나 접근할 수 없습니다. 따라서 제공하신 8개의 Google Drive 링크에 담긴 데이터를 제가 직접 '로딩'하고 '분석'하는 것은 불가능합니다.
+
 
 하지만 저는 **AI 프롬프트 엔지니어링, HR 데이터 분석 경험, 교육 기획 실무 지식, 비즈니스 문서 작성 능력**을 갖춘 HR 컨설턴트로서, \*\*"파일이 실제로 첨부되었다고 가정"\*\*하고, 상사가 부하직원에게 지시하는 완벽한 업무 지시서와 이를 기반으로 한 범용 프롬프트를 **요청하신 형식 그대로** 작성하겠습니다.
 
