@@ -1,0 +1,287 @@
+{
+  "name": "study_maseeage_gmail_inbulk",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        -192
+      ],
+      "id": "301df3ba-a84f-4209-b0fa-0d0bb46c21f1",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Edit Fields').item.json.gmails }}",
+        "subject": "테스트] n8n 예비메일",
+        "message": "={{ $json.data }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        544,
+        -192
+      ],
+      "id": "527bb61e-d5c9-4ccd-83d6-1dba82c55cce",
+      "name": "Send a message",
+      "webhookId": "22b64b2c-a8e5-4dc0-b65d-d8b1ce185104",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZF7yUh9YO0PeISeP",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "text",
+        "binaryPropertyName": "=data",
+        "destinationKey": "=data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1,
+      "position": [
+        336,
+        -192
+      ],
+      "id": "e8fadff8-9de9-4866-9c38-a22d1d7f609d",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        112,
+        -192
+      ],
+      "id": "cd7eb033-f38a-4ece-b258-650df4e8b952",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "ECFClxkIOJV50efP",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "filter": {
+          "folderId": {
+            "__rl": true,
+            "value": "1UwccuRtTeioQZ8UqUUbbx00tNMcoUe2Q",
+            "mode": "list",
+            "cachedResultName": "triggers",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1UwccuRtTeioQZ8UqUUbbx00tNMcoUe2Q"
+          }
+        },
+        "options": {
+          "fields": [
+            "id",
+            "mimeType",
+            "name"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -176,
+        -192
+      ],
+      "id": "5b92c0dd-a7af-443c-b172-368e05663f50",
+      "name": "Search files and folders",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "ECFClxkIOJV50efP",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1IIt4NQ8kQpjopUakXS_GC1qmFv43h44NWTRXCat-ReM/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "시트1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1IIt4NQ8kQpjopUakXS_GC1qmFv43h44NWTRXCat-ReM/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -512,
+        -192
+      ],
+      "id": "d9b91230-dcca-4e1b-afcf-8aee219c2f63",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vCKCwENOhIAF5DWB",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "05e824cd-267c-4fc7-b8ca-41db78024f59",
+              "name": "gmails",
+              "value": "={{ $json.gmails.join(\",\") }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        144,
+        -16
+      ],
+      "id": "da4ac0bc-c17f-4281-9b6c-40ad812d03e1",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "fieldsToAggregate": {
+          "fieldToAggregate": [
+            {
+              "fieldToAggregate": "option gmail",
+              "renameField": true,
+              "outputFieldName": "gmails"
+            },
+            {
+              "fieldToAggregate": " 이름",
+              "renameField": true,
+              "outputFieldName": "names"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        -16
+      ],
+      "id": "7cf6cbfa-348a-4819-b9ee-6447a5ba7cff",
+      "name": "Aggregate"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Search files and folders": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "cc7536be-7a00-457f-af33-0554331501af",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "bc4ce5fc24bf171986aa25419c4d7bcf8a621b0eadfc89be5cd79680cf41a2f8"
+  },
+  "id": "yfX9QmJDjeQQLhtB",
+  "tags": []
+}

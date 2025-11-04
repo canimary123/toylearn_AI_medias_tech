@@ -5,7 +5,7 @@
       "parameters": {
         "sendTo": "={{ $json['option gmail'] }}",
         "subject": "테스트] n8n 예비메일",
-        "message": "={{ $('Get a document').item.json.content }}",
+        "message": "={{ $('Create spreadsheet').item.json.properties.title }}",
         "options": {}
       },
       "type": "n8n-nodes-base.gmail",
@@ -258,61 +258,6 @@
     },
     {
       "parameters": {
-        "resource": "folder",
-        "operation": "deleteFolder",
-        "folderNoRootId": {
-          "__rl": true,
-          "value": "1UwccuRtTeioQZ8UqUUbbx00tNMcoUe2Q",
-          "mode": "list",
-          "cachedResultName": "triggers",
-          "cachedResultUrl": "https://drive.google.com/drive/folders/1UwccuRtTeioQZ8UqUUbbx00tNMcoUe2Q"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleDrive",
-      "typeVersion": 3,
-      "position": [
-        1472,
-        -32
-      ],
-      "id": "84b830f4-9d2b-45ea-8dab-7530f4e8df76",
-      "name": "Delete folder",
-      "credentials": {
-        "googleDriveOAuth2Api": {
-          "id": "ECFClxkIOJV50efP",
-          "name": "Google Drive account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "operation": "create",
-        "documentId": {
-          "__rl": true,
-          "value": "10-i1JNWhNbE_v4-IWLrNn869Z3jKG9HdIJvBX51v2z0",
-          "mode": "list",
-          "cachedResultName": "data",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/10-i1JNWhNbE_v4-IWLrNn869Z3jKG9HdIJvBX51v2z0/edit?usp=drivesdk"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.googleSheets",
-      "typeVersion": 4.7,
-      "position": [
-        336,
-        16
-      ],
-      "id": "4f687f06-5178-4adf-a87f-0bbb94e0061d",
-      "name": "Create sheet",
-      "credentials": {
-        "googleSheetsOAuth2Api": {
-          "id": "vCKCwENOhIAF5DWB",
-          "name": "Google Sheets account"
-        }
-      }
-    },
-    {
-      "parameters": {
         "folderId": "1mLC1S7R1MG6Mg6zsh_NBG7VO1mN443yY",
         "title": "=send"
       },
@@ -355,6 +300,65 @@
       ],
       "id": "c1e04198-de95-4170-a79b-1b339ee2554c",
       "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "vCKCwENOhIAF5DWB",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "move",
+        "fileId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "={{ $('Search files and folders').item.json.id }}"
+        },
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1PBl_QCC_jbF-lJzpArH4by4DuIaYctH2",
+          "mode": "list",
+          "cachedResultName": "pasts",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1PBl_QCC_jbF-lJzpArH4by4DuIaYctH2"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1024,
+        256
+      ],
+      "id": "84b830f4-9d2b-45ea-8dab-7530f4e8df76",
+      "name": "Move file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "ECFClxkIOJV50efP",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "spreadsheet",
+        "title": "={{ $json.data }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        336,
+        16
+      ],
+      "id": "4f687f06-5178-4adf-a87f-0bbb94e0061d",
+      "name": "Create spreadsheet",
       "credentials": {
         "googleSheetsOAuth2Api": {
           "id": "vCKCwENOhIAF5DWB",
@@ -419,20 +423,14 @@
     },
     "Send a message": {
       "main": [
-        [
-          {
-            "node": "Delete folder",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "Edit Fields": {
       "main": [
         [
           {
-            "node": "Create sheet",
+            "node": "Create spreadsheet",
             "type": "main",
             "index": 0
           }
@@ -472,17 +470,6 @@
         ]
       ]
     },
-    "Create sheet": {
-      "main": [
-        [
-          {
-            "node": "Get row(s) in sheet1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Create a document": {
       "main": [
         [
@@ -498,7 +485,18 @@
       "main": [
         [
           {
-            "node": "Send a message",
+            "node": "Move file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create spreadsheet": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
             "type": "main",
             "index": 0
           }
@@ -510,7 +508,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "4b332db4-afba-449e-8806-ca705f962287",
+  "versionId": "221f216b-cb69-4fb9-9f74-caa2deb017a1",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "bc4ce5fc24bf171986aa25419c4d7bcf8a621b0eadfc89be5cd79680cf41a2f8"
