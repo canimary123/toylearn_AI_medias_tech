@@ -1,0 +1,409 @@
+{
+  "name": "05_apis_weathermaps",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3a7f87ed-93b4-43be-b0a0-e9aa16f27950",
+      "name": "When chat message received",
+      "webhookId": "ac4d4d8a-dc32-43d3-b12c-9ee5bffd438a"
+    },
+    {
+      "parameters": {
+        "url": "https://api.openweathermap.org/data/2.5/weather",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "lat",
+              "value": "37.556706"
+            },
+            {
+              "name": "lon",
+              "value": "126.983967"
+            },
+            {
+              "name": "appid",
+              "value": "14f6aec495c97c04db1b323e39963dd5"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        448,
+        256
+      ],
+      "id": "a90144ca-30be-4048-b252-5db26bd3d7ef",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        160,
+        256
+      ],
+      "id": "6060869c-c4bd-4151-81f1-12682a99a82f",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "url": "http://api.openweathermap.org/data/2.5/forecast",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "lat",
+              "value": "=44.34"
+            },
+            {
+              "name": "lon",
+              "value": "10.99"
+            },
+            {
+              "name": "appid",
+              "value": "14f6aec495c97c04db1b323e39963dd5"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        -32,
+        448
+      ],
+      "id": "6ac5f6a2-4bb6-4c04-acf5-2755cf242679",
+      "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "formTitle": " 도시 정보 입력",
+        "formDescription": "입력한 도시 날씨 정보 제공",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "도시명",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "좌표"
+            },
+            {
+              "fieldLabel": "확인 일시"
+            },
+            {
+              "fieldLabel": "Current"
+            },
+            {
+              "fieldLabel": "Hourly"
+            },
+            {
+              "fieldLabel": "Daily Forecast"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        -256,
+        448
+      ],
+      "id": "5a9f4002-2910-404c-8f3c-2fbe8452424f",
+      "name": "On form submission",
+      "webhookId": "597815dc-b004-4b07-9fbe-99ca48d5a31a"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ba196e3a-d293-4697-9137-778f4902a37c",
+              "name": "도시명",
+              "value": "={{ $('On form submission').item.json[\"도시명\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "d2b7d05c-6602-438c-bdf8-fc0dff6f5cfb",
+              "name": "",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        816,
+        32
+      ],
+      "id": "fe9540af-1c1d-448e-a75d-23838f92fed7",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1meeqn0w0MU3MWxSj7tPk3bhicfkMrhFkR8RjjWaK4JE",
+          "mode": "list",
+          "cachedResultName": "05_apis_weathermaps",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1meeqn0w0MU3MWxSj7tPk3bhicfkMrhFkR8RjjWaK4JE/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "시트1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1meeqn0w0MU3MWxSj7tPk3bhicfkMrhFkR8RjjWaK4JE/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "좌표": "={{ $json.coord }}",
+            "확인 일시": "={{ $('On form submission').item.json.submittedAt }}",
+            "도시명": "={{ $('On form submission').item.json[\"도시명\"] }}",
+            "Current": "={{ $json.weather }}",
+            "Hourly": "={{ $json.base }}",
+            "Daily Forecast": "={{ $json.timezone }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "도시명",
+              "displayName": "도시명",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "좌표",
+              "displayName": "좌표",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "확인 일시",
+              "displayName": "확인 일시",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Current",
+              "displayName": "Current",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Hourly",
+              "displayName": "Hourly",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Daily Forecast",
+              "displayName": "Daily Forecast",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        720,
+        448
+      ],
+      "id": "3e2132b8-df42-431b-9cea-3c61f9cd3fce",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "t7MseVU2NIMV4YBv",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "https://api.openweathermap.org/data/2.5/weather",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "lat",
+              "value": "=44.34"
+            },
+            {
+              "name": "lon",
+              "value": "10.99"
+            },
+            {
+              "name": "appid",
+              "value": "14f6aec495c97c04db1b323e39963dd5"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        176,
+        448
+      ],
+      "id": "ec205535-59f9-41e3-9e7e-4f520141e4c5",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "url": "https://api.openweathermap.org/data/2.5/weather",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "lat",
+              "value": "37.556706"
+            },
+            {
+              "name": "lon",
+              "value": "126.983967"
+            },
+            {
+              "name": "appid",
+              "value": "14f6aec495c97c04db1b323e39963dd5"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        416,
+        448
+      ],
+      "id": "b07fc307-24e5-4a3d-982b-0d560ad4763e",
+      "name": "HTTP Request3"
+    }
+  ],
+  "pinData": {
+    "On form submission": [
+      {
+        "json": {
+          "도시명": "런던",
+          "좌표": "",
+          "확인 일시": "",
+          "Current": "",
+          "Hourly": "",
+          "Daily Forecast": "2025.11.05",
+          "submittedAt": "2025-11-05T16:51:49.768+09:00",
+          "formMode": "test"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When chat message received": {
+      "main": [
+        []
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "0418b94c-4f88-4913-a425-7f12189b5390",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e9a8939e383352732ce7fc7642ab598b4c153ecd5592f96f8b58b98adc8d6943"
+  },
+  "id": "GjjRbHWvXgYfhz5Q",
+  "tags": []
+}
