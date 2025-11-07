@@ -1,0 +1,355 @@
+{
+  "name": "19_n8n_api_diskfiles.md",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "value": "1mLC1S7R1MG6Mg6zsh_NBG7VO1mN443yY",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1mLC1S7R1MG6Mg6zsh_NBG7VO1mN443yY"
+        },
+        "event": "fileUpdated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        -848,
+        -272
+      ],
+      "id": "c330997b-1af5-4fcf-acdc-d4a277518cf1",
+      "name": "Google Drive Trigger",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "4WEFtKIkGGoubRi4",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "=https://docs.google.com/spreadsheets/d/1Sl6YVlZMIJXFEirJx5RKnLBGpM2xhBkg-viMQdLDfkA/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet_1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Sl6YVlZMIJXFEirJx5RKnLBGpM2xhBkg-viMQdLDfkA/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -368,
+        -256
+      ],
+      "id": "46301603-2877-4c9e-ab4e-241075c63fc2",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "8SurRROMeXKl7cOv",
+          "name": "Google Sheets account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "60454537-8744-4803-a44e-432f44865b1a",
+              "name": "resource",
+              "value": "=/home/node/resources/",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        0,
+        -256
+      ],
+      "id": "3e4dc23c-32bf-44c3-9d7a-4985662be33f",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "command": "=cd {{ $('Edit Fields').item.json.resource }} &&\nffmpeg -f s16le -ar 24000 -ac 1 -i out.pcm out.wav"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1296,
+        -256
+      ],
+      "id": "0c18a324-8148-4cff-abe0-74ac6032ae66",
+      "name": "Execute Command"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-goog-api-key",
+              "value": "AIzaSyAznaLQXuFthB_B1qfdVywVZSDi4Dqzpyc"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"contents\": [{\n        \"parts\":[{\n            \"text\": \"{{ $('Edit Fields').item.json.resource }}\"\n        }]\n    }],\n    \"generationConfig\": {\n        \"responseModalities\": [\"AUDIO\"],\n        \"speechConfig\": {\n            \"voiceConfig\": {\n                \"prebuiltVoiceConfig\": {\n                    \"voiceName\": \"Kore\"\n                }\n            }\n        }\n    },\n    \"model\": \"gemini-2.5-flash-preview-tts\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        624,
+        -256
+      ],
+      "id": "7a37f659-0bdd-4db0-9c98-7cdc83e89dcf",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "candidates[0].content.parts[0].inlineData.data",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        832,
+        -256
+      ],
+      "id": "94355d48-30c6-480e-99d9-daecdae7949c",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Edit Fields').item.json.resource }}out.wav",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1520,
+        -256
+      ],
+      "id": "1191b6fb-4896-481c-b693-be8390c6f696",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "/home/node/resources/out.pcm",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1056,
+        -256
+      ],
+      "id": "be78eb1d-e976-46b2-b48f-2dbd1b8fea5e",
+      "name": "Read/Write Files from Disk1"
+    },
+    {
+      "parameters": {
+        "command": "=mkdir -p {{ $json.resource }}"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        256,
+        -256
+      ],
+      "id": "2db4a0b3-6dde-4f13-8524-688fe058c966",
+      "name": "Execute Command1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -560,
+        -368
+      ],
+      "id": "80b3bba1-851c-4906-94a3-8e263bcdd507",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "name": "Replace Me",
+      "typeVersion": 1,
+      "position": [
+        1584,
+        -16
+      ],
+      "id": "6a601c84-cf2a-4ec6-859c-c694863eb141"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Drive Trigger": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Execute Command1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Replace Me",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk1": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Replace Me": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Command1": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8297cbdf-927b-4bd7-b2c4-3aed3a9627ed",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e9a8939e383352732ce7fc7642ab598b4c153ecd5592f96f8b58b98adc8d6943"
+  },
+  "id": "af8hTBr1Yqf6JhNQ",
+  "tags": []
+}
