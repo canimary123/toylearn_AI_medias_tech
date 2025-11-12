@@ -1,0 +1,277 @@
+{
+  "name": "11_send_email_forms",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "91f7a179-4fa9-4a74-aeab-10fbee57f02f",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -512,
+        -112
+      ],
+      "id": "c5c9272c-6889-4901-b3cf-3a038468c3bd",
+      "name": "Webhook",
+      "webhookId": "91f7a179-4fa9-4a74-aeab-10fbee57f02f"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "165c7d26-bf93-4aac-a8fd-e6a07fb93f03",
+              "name": "title",
+              "value": "={{ $json.query.title }}",
+              "type": "string"
+            },
+            {
+              "id": "2311eff6-89d1-4046-9814-088df3fb41c6",
+              "name": "CONTENT",
+              "value": "={{ $json.query.CONTENT }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -288,
+        -112
+      ],
+      "id": "b653c3c3-79d6-4dd6-b47c-4dd6f2d25289",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1kc881bwouEACrhSJx0AVY4-CYfsRD2Azzcd9UCENi5Q/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1kc881bwouEACrhSJx0AVY4-CYfsRD2Azzcd9UCENi5Q/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -64,
+        -112
+      ],
+      "id": "b8b7824a-7ffc-453f-b035-ec9695f366df",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "al83SV3GiB7LnRbG",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"$json\": {\n    \"google Emails\": [\n      \"futureleadet@gmail.com\",\n      \"qped123@gmail.com\",\n      \"byoungikhwang@gmail.com\",\n      \"jinh2kakao@gmail.com\"\n    ]\n  }\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        160,
+        -112
+      ],
+      "id": "3eac7f5f-a5f2-4566-9266-7560c3bfa8ae",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json[\"google Email\"].join(',') }}",
+        "subject": "={{ $json.title }}",
+        "message": "={{ $json.CONTENT }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        832,
+        -112
+      ],
+      "id": "81040a57-41a2-4bf9-b827-7e6ba774f49c",
+      "name": "Send a message",
+      "webhookId": "011b0683-89e5-4e37-8a4d-048d7aed27dd",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "ZUVM1uZJYTe83xUt",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "036160f1-8593-47e1-b2a2-656d13c42dd6",
+              "name": "google Email",
+              "value": "={{ $json[\"$json\"][\"google Emails\"] }}",
+              "type": "array"
+            },
+            {
+              "id": "bee14f64-6d91-4118-a5d5-fed74e24c2d1",
+              "name": "title",
+              "value": "={{ $('Edit Fields').item.json.title }}",
+              "type": "string"
+            },
+            {
+              "id": "5589c41b-8fd3-4562-9cad-fb90eb933f9f",
+              "name": "CONTENT",
+              "value": "={{ $('Edit Fields').item.json.CONTENT }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        608,
+        -112
+      ],
+      "id": "c8810b3c-bdb1-4cfa-8005-fa40853c72d5",
+      "name": "Edit Fields3"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        384,
+        -112
+      ],
+      "id": "f1e39cbb-6f22-44d5-90fb-703284e651ea",
+      "name": "Limit"
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "localhost:5678",
+            "connection": "keep-alive",
+            "sec-ch-ua": "\"Chromium\";v=\"142\", \"Microsoft Edge\";v=\"142\", \"Not_A Brand\";v=\"99\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"Windows\"",
+            "upgrade-insecure-requests": "1",
+            "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36 Edg/142.0.0.0",
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+            "sec-fetch-site": "cross-site",
+            "sec-fetch-mode": "navigate",
+            "sec-fetch-user": "?1",
+            "sec-fetch-dest": "document",
+            "referer": "http://127.0.0.1:5500/",
+            "accept-encoding": "gzip, deflate, br, zstd",
+            "accept-language": "ko,en;q=0.9,en-US;q=0.8",
+            "cookie": "rl_page_init_referrer=RudderEncrypt%3AU2FsdGVkX1%2FDlY9QUploarjvy7C0s%2FwmxD5dipxkIL0%3D; rl_page_init_referring_domain=RudderEncrypt%3AU2FsdGVkX1%2Be%2Fn22spYUhAN51QSuXf%2BrGBUu1E%2FjEcE%3D; rl_anonymous_id=RudderEncrypt%3AU2FsdGVkX1%2BlRNIcoLp1kiRP0K5cY4rDN2JpXoxBdDkw7QJOg8ZbUm5yqU%2Btmp9DjfhkB25Vh1CRClGDgBcsPQ%3D%3D; rl_user_id=RudderEncrypt%3AU2FsdGVkX182%2FIoHxtVga4hBeg3Lakd3TQ9GIQIRFqvbypF1MZAiLcdncqKbSdyOGpRiYU4aZVMtkn0RVDNkKw4rmw%2BeE3KJ1L9PHrsqa5vtOhQFomIuV8ufVkuD3XNynqq%2F3EnnsQh1tRduNrNwqQsigKL0jEG27o21ORXlIoY%3D; rl_trait=RudderEncrypt%3AU2FsdGVkX1%2B%2FDq2mpTcmk7a%2BVuiemxATPxusHpd3oMLS1jS7C%2FyP5USl7lV4HwM0L7tI7jl4vy%2BKlbGXzAT9tVlFiFidwZmNeLVaG5mJBaLLAtO8n8BkJVT4n8I5lNOGCI62LM20Yyz1GzdN2mJFSOtPanFNXx4fLhpLhnKL5TI%3D; rl_session=RudderEncrypt%3AU2FsdGVkX1%2BXF2kDt8B%2B3Ju1NvpEY49viHr7wNwEhQOBGa4WRb0UbtaPzghwJ8%2F5DBiUnNRqCRPLoQOiL2WWzCzfF5r2IFD%2BLmImRGMcQANRU2WvZ1o5fZBNM4%2BzlxqxLFWYVuTZuMf2SbQeegImoA%3D%3D; ph_phc_4URIAm1uYfJO7j8kWSe0J8lc8IqnstRLS7Jx8NcakHo_posthog=%7B%22distinct_id%22%3A%22d8e9fc8ede2fe4f3a57c95bd12d91f15447c1b09f5a2db958c36fa96ea891968%23b30ffd6f-a37f-463b-b019-d80d161c089c%22%2C%22%24sesid%22%3A%5B1762932613900%2C%22019a7699-42ce-7737-beee-5bbee309c06f%22%2C1762926346954%5D%2C%22%24epp%22%3Atrue%2C%22%24initial_person_info%22%3A%7B%22r%22%3A%22%24direct%22%2C%22u%22%3A%22http%3A%2F%2Flocalhost%3A5678%2Fsignout%22%7D%7D"
+          },
+          "params": {},
+          "query": {
+            "title": "n8n 테스트입니다~",
+            "CONTENT": "n8n 테스트입니다~"
+          },
+          "body": {},
+          "webhookUrl": "http://localhost:5678/webhook-test/91f7a179-4fa9-4a74-aeab-10fbee57f02f",
+          "executionMode": "test"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields3": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a2140258-fcc3-4b89-bb89-1560f295aade",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "d8e9fc8ede2fe4f3a57c95bd12d91f15447c1b09f5a2db958c36fa96ea891968"
+  },
+  "id": "cF1kFLG5ClJLfb7h",
+  "tags": []
+}
